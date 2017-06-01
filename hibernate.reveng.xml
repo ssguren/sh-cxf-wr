@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+<table name="spt_fallback_usg" schema="dbo" catalog="master"
+		class="Sp">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="t_user" schema="dbo" catalog="ZSXL" class="User">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="MS_BRDA" schema="dbo" catalog="mz_bsrun"
+		class="Patient">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+
+	<table name="MS_YSPBB" schema="dbo" catalog="mz_bsrun"
+		class="DoctorSchedule">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="ms_ghks" schema="dbo" catalog="mz_bsrun"
+		class="Department">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="ms_yyghb" schema="dbo" catalog="mz_bsrun"
+		class="Order">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="yb_mzbrda" schema="dbo" catalog="mz_bsrun"
+		class="PatientCard">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="YYGH_DOCTOR_INFO" schema="dbo" catalog="mz_bsrun"
+	class="Doctor">
+	<primary-key>
+		<generator class="native"></generator>
+	</primary-key>
+</table>
+</hibernate-reverse-engineering>
