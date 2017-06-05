@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	 http://www.springframework.org/schema/context
+	 http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	 http://www.springframework.org/schema/aop
+	 http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	 http://www.springframework.org/schema/tx
+	 http://www.springframework.org/schema/tx/spring-tx-4.1.xsd"
+	default-autowire="default" default-lazy-init="false">
+	
+	<import resource="applicationContext-service.xml" />
+	<import resource="applicationContext-webservice.xml" />
+	<!-- 
+	 -->
+	
+	
+	<context:property-placeholder location="classpath:db.properties" />
+
+	<!-- 使Spring关注Annotation -->
+	<context:annotation-config />
+
+	<!-- component-scan -->
+	<context:component-scan base-package="com.datacenter.dao.impl" />
+	<context:component-scan base-package="com.datacenter.dao" />
+	
+	
+	<bean   id="read" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="name" value="Druid1" />
+		<property name="dbType" value="sqlserver" />
+		<!-- 
+		<property name="driverClassName" value="com.microsoft.jdbc.sqlserver.SQLServerDriver" />
+		 -->
+		<property name="url" value="${read.url}" />
+		<property name="username" value="${read.user}" />
+		<property name="password" value="${read.psw}" />
+		<property name="filters" value="stat,wall" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="5" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<!-- 
+		<property name="validationQuery" value="SELECT getdate()" />
+		 -->
+		<property name="validationQuery" value="SELECT CURRENT_DATE" />
+		<property name="validationQueryTimeout" value="3000" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="defaultAutoCommit" value="true" />
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+		<property name="maxOpenPreparedStatements" value="100" />
+		<!-- 打开removeAbandoned功能，对于长时间不使用的连接强制关闭 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 单位：秒 -->
+		<property name="removeAbandonedTimeout" value="1800" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+	</bean>
+	<bean  parent="read" id="write" >
+		<property name="name" value="Druid2" />
+		<property name="url" value="${write.url}" />
+		<property name="username" value="${write.user}" />
+		<property name="password" value="${write.psw}" />
+	</bean>
+
+	
+	<bean id="dataSource" class="com.utils.DynamicDataSource" >  
+        <property name="targetDataSources">  
+            <map key-type="java.lang.String">  
+                <entry value-ref="read" key="readDb"></entry>  
+                <entry value-ref="write" key="writeDb"></entry>  
+            </map>  
+        </property>  
+        <property name="defaultTargetDataSource" ref="read" >  
+        </property>  
+    </bean>  
+
+<!-- 
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="driverUrl" value="${db.url}" />
+		<property name="user" value="testmz" />
+		<property name="password" value="testmz" />
+		<property name="alias" value="DBPool" />
+		<property name="testBeforeUse" value="true" />
+		<property name="maximumActiveTime" value="60000" />
+		<property name="maximumConnectionCount" value="50" />
+		<property name="minimumConnectionCount" value="5" />
+		<property name="prototypeCount" value="1" />
+		<property name="houseKeepingTestSql" value="select getdate()" />
+	</bean>
+ -->
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		lazy-init="false">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.model.db</value>
+			</list>
+		</property>
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+		<property name="configLocations" value="classpath:hibernate.cfg.xml" />
+		<property name="hibernateProperties">
+			<props></props>
+		</property>
+	</bean>
+
+	<bean id="baseHibernateDAO" class="card.datacenter.BaseHibernateDAO"
+		abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="allowCreate" value="true" />
+	</bean>
+
+	<!-- 定义事务管理器（声明式的事务） -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 注解式事务管理 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
+</beans>
