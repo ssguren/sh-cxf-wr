@@ -33,7 +33,10 @@
 	<bean   id="read" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
 		<property name="name" value="Druid1" />
-		<property name="dbType" value="sqlserver" />
+		<!-- 
+		<property name="dbType" value="mysql" />
+		<property name="driverClassName" value="com.mysql.jdbc.ReplicationDriver" />
+		 -->
 		<!-- 
 		<property name="driverClassName" value="com.microsoft.jdbc.sqlserver.SQLServerDriver" />
 		 -->
@@ -130,4 +133,32 @@
 
 	<!-- 注解式事务管理 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
+	
+	<!-- 激活自动代理功能 -->  
+	<aop:aspectj-autoproxy proxy-target-class="true"/>  
+	<!-- 配置数据库注解aop -->  
+	<bean id="dataSourceAspect" class="com.utils.DataSourceAspect">
+		<property name="method_type">
+			<map key-type="java.lang.String">
+				<entry key="add" value="writeDb" />
+				<entry key="save" value="writeDb" />
+				<entry key="update" value="writeDb" />
+				<entry key="merge" value="writeDb" />
+				<entry key="delete" value="writeDb" />
+				<entry key="attachDirty" value="writeDb" />
+				<entry key="findByProperty" value="readDb" />
+				<entry key="findByPropertyNonCache" value="readDb" />
+				<entry key="findAll" value="readDb" />
+				<entry key="count" value="readDb" />
+				<entry key="findByPage" value="readDb" />
+			</map>
+		</property>
+	</bean>
+	<aop:config>  
+	    <aop:aspect id="c" ref="dataSourceAspect">  
+	        <aop:pointcut id="tx" expression="execution(* com.servicecenter.service.buss..*.*(..))"/>  
+	        <aop:before pointcut-ref="tx" method="before"/>  
+	    </aop:aspect>  
+	</aop:config>  
+	<!-- 配置数据库注解aop -->  
 </beans>

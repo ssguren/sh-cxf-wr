@@ -14,7 +14,11 @@ public interface ITestService {
 	public WSResult isWsOk();
 
 	@WebResult(name = "WSResult", targetNamespace = "http://tempTest.org")
-	@WebMethod(operationName = "dbChange", action = "http://tempTest.org/dbChange")
-	public WSResult dbChange();
+	@WebMethod(operationName = "dbChangeWithoutAop", action = "http://tempTest.org/dbChangeWithoutAop")
+	public WSResult dbChangeWithoutAop();
+
+	@WebResult(name = "WSResult", targetNamespace = "http://tempTest.org")
+	@WebMethod(operationName = "dbChange4Aop", action = "http://tempTest.org/dbChange4Aop")
+	public WSResult dbChange4Aop();
 
 }
