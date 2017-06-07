@@ -21,4 +21,8 @@ public interface ITestService {
 	@WebMethod(operationName = "dbChange4Aop", action = "http://tempTest.org/dbChange4Aop")
 	public WSResult dbChange4Aop();
 
+	@WebResult(name = "WSResult", targetNamespace = "http://tempTest.org")
+	@WebMethod(operationName = "testHessian", action = "http://tempTest.org/testHessian")
+	public WSResult testHessian();
+
 }
