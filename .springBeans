@@ -10,5 +10,5 @@
 	</configs>
 	<configSets>
 	</configSets>
-	<springVersion>2.5</springVersion>
+	<springVersion>4.1</springVersion>
 </beansProjectDescription>
