@@ -7,3 +7,6 @@ master :
     
 hessian :
     hessian client demo
+
+    add user auth (user,pwd)
+    add header auth (timestamp,sign)
