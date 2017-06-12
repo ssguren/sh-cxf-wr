@@ -16,11 +16,12 @@
 	
 	<import resource="applicationContext-service.xml" />
 	<import resource="applicationContext-webservice.xml" />
+	<import resource="applicationContext-hessian.xml" />
 	<!-- 
 	 -->
 	
 	
-	<context:property-placeholder location="classpath:db.properties" />
+	<context:property-placeholder location="classpath:sh.properties" />
 
 	<!-- 使Spring关注Annotation -->
 	<context:annotation-config />

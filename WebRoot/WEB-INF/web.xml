@@ -13,6 +13,8 @@
     <param-name>log4jRefreshInterval</param-name>
     <param-value>1800000</param-value>
   </context-param>
+  <!-- 
+   -->
   <listener>
     <listener-class>
 			org.springframework.web.util.IntrospectorCleanupListener
@@ -33,11 +35,15 @@
 			org.springframework.web.context.request.RequestContextListener
 		</listener-class>
   </listener>
+  <!-- 
+   -->
   <listener>
     <listener-class>
 			com.web.listener.StartUpListener
 		</listener-class>
   </listener>
+  <!-- 
+   -->
   <filter>
     <filter-name>OpenSessionInViewFilter</filter-name>
     <filter-class>
