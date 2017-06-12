@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry excluding="config/" kind="src" path="src"/>
 	<classpathentry kind="src" path="src/config"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
@@ -78,7 +77,7 @@
 	<classpathentry kind="lib" path="updateLib/aspectjrt-1.8.5.jar"/>
 	<classpathentry kind="lib" path="updateLib/aspectjweaver-1.8.5.jar"/>
 	<classpathentry kind="lib" path="updateLib/druid-1.0.9.jar"/>
-	<classpathentry kind="lib" path="updateLib/hessian-4.0.38.jar"/>
+	<classpathentry kind="lib" path="updateLib/hessian-4.0.38.jar" sourcepath="G:/mvnRespo/com/caucho/hessian/4.0.38/hessian-4.0.38-sources.jar"/>
 	<classpathentry kind="lib" path="updateLib/hibernate-3.6.10.GA.jar"/>
 	<classpathentry kind="lib" path="updateLib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="updateLib/spring-amqp-1.4.3.RELEASE.jar"/>
@@ -98,5 +97,10 @@
 	<classpathentry kind="lib" path="updateLib/spring-tx-4.1.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="updateLib/spring-web-4.1.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="updateLib/spring-webmvc-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

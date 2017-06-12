@@ -3,7 +3,7 @@
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/config"/>
-        <property name="context-root" value="/zsxlhosp"/>
+        <property name="context-root" value="/sh-cxf-wr"/>
         <property name="java-output-path" value="/sh-cxf-wr/WebRoot/WEB-INF/classes"/>
     </wb-module>
 </project-modules>

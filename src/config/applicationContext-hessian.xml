@@ -19,5 +19,14 @@
 		<property name="serviceInterface"
 			value="com.hessian.client.IAdvertHessianService" />
 	</bean>
+	
+	<bean id="HessianConfigUtil" class="com.hessian.util.HessianConfigUtil">
+		<property name="url" value="${hessian.demo.url}" />
+		<property name="hessianUser" value="${hessian.hessianUser}" />
+		<property name="hessianPassword" value="${hessian.hessianPassword}" />
+		<property name="connectionTimeout" value="${hessian.connectionTimeout}" />
+		<property name="readTimeout" value="${hessian.readTimeout}" />
+		<property name="headKey" value="${hessian.headKey}" />
+	</bean>
 
 </beans>
